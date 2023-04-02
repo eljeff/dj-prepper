@@ -14,7 +14,7 @@ outdir = "processed"
 target_bpm = 111.0
 
 for f in files:
-    print(f)
+    print("processing " + f)
     # [Fs, signal] = audioBasicIO.read_audio_file(f)
     # signal = signal[:,0]
     # signal_len = len(signal)
@@ -71,28 +71,20 @@ for f in files:
     # print("Beats per Minute (bpm): ",bpm)
     # print("Confidence ratio for BPM: ", confidence_ratio)
 
-    bpm1, sr1 = GetBPM.getBPMLibrosa(f)
-    bpm2, sr2 = GetBPM.getBPMLibrosaTweak(f, 3.0, 60.0, 120.0, 30.0)
+    bpm1, sr1 = GetBPM.getBPMLibrosa(f, 120., 50.0)
 
     modifier1 = target_bpm / bpm1
     new_bpm1 = bpm1 * modifier1
 
-    modifier2 = target_bpm / bpm2
-    new_bpm2 = bpm2 * modifier2
-
-    print(f)
     print(str(bpm1) + " -- " + str(modifier1) + " -- " + str(new_bpm1))
-    print(str(bpm2) + " -- " + str(modifier2) + " -- " + str(new_bpm2))
     new_path = f.replace(dir_to_scan, outdir)
     
     new_sr1 = modifier1 * sr1
     print("resampling1 to " + str(new_sr1))
-    new_sr2 = modifier2 * sr2
-    print("resampling2 to " + str(new_sr2))
     # ffmpeg -y -i input_video_path -i logo_path -filter_complex "[0:a]volume=volume=6dB:precision=fixed[a];[0:v]eq=gamma=1.5:saturation=1.3[bg];[bg][1:0]overlay=main_w-(overlay_w + 10):10,format=yuvj420p[v]" -map "[v]" -map "[a]" output_video_path
 
     # ff = ffmpy.FFmpeg(inputs={f: None}, outputs={new_path: ["-filter:a", "asetrate=" + str(new_sr)]}) #timestretch
-    setrate_filter = "[a]asetrate=" + str(new_sr2) + "[b]"
+    setrate_filter = "[a]asetrate=" + str(new_sr1) + "[b]"
     resample_filter = "[b]aresample=44100"
     ff = ffmpy.FFmpeg(inputs={f: None}, outputs={new_path: ["-y", "-filter_complex:a", setrate_filter + ", " + resample_filter]})
     ff.run()
