@@ -3,7 +3,7 @@ import librosa
 def getBPMLibrosa(f, target, range):
     y, sr = librosa.load(f, sr=None)
     beatinfo = librosa.beat.tempo(y=y, sr=sr)
-    bpm = beatinfo[0] #round(beatinfo[0], 2)
+    bpm = beatinfo[0]
     return keepBPMInRange(bpm, target, range), sr
 
 def getBPMLibrosaTrim(f):
