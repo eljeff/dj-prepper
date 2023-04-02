@@ -7,9 +7,12 @@ class DirScanner:
         path_to_scan = str(path)
         msg = "Scanning " + path_to_scan + "..."
         print(msg)
-        onlyfiles = [f for f in listdir(path_to_scan) if isfile(join(path_to_scan, f))]
+        onlyfiles = [join(path_to_scan, f) for f in listdir(path_to_scan) if isfile(join(path_to_scan, f))]
         for file in onlyfiles:
+            file
             print(file)
+            
+        return onlyfiles
 
     def scanFromInput(self):
         path_to_scan = str(input("enter path to scan: "))
