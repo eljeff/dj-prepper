@@ -12,7 +12,7 @@ target_bpm = 111.0
 for f in files:
     print(f)
     y, sr = librosa.load(f)
-    beatinfo = librosa.beat.tempo()
+    beatinfo = librosa.beat.tempo(y)
     bpm = beatinfo[0]
     modifier = target_bpm / bpm
     new_bpm = bpm * modifier
