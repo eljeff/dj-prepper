@@ -17,7 +17,7 @@ for f in files:
 
     name_components = os.path.splitext(f)
     path_with_bpm = name_components[0] + "-" + str(target_bpm).replace(".", "_") + "bpm" + name_components[1]
-    bpm, sr = GetBPM.getBPMLibrosa(f, 120.0, 50.0)
+    bpm, sr = GetBPM.getBPMLibrosa(f, target_bpm)
 
     modifier = target_bpm / bpm
     new_sr = modifier * sr
