@@ -1,19 +1,17 @@
 from os import listdir
 from os.path import isfile, join
+import glob
 
 class DirScanner:
 
-    def scan(self, path):
+    def scan(self, path, matchPattern):
         path_to_scan = str(path)
         msg = "Scanning " + path_to_scan + "..."
         print(msg)
-        onlyfiles = [join(path_to_scan, f) for f in listdir(path_to_scan) if isfile(join(path_to_scan, f))]
-        for file in onlyfiles:
-            file
-            print(file)
-            
-        return onlyfiles
+        files = glob.glob(path + "/" + matchPattern)       
+        return files
 
     def scanFromInput(self):
         path_to_scan = str(input("enter path to scan: "))
-        self.scan(path_to_scan)
+        match_pattern = str(input("enter pattern to match via glob: "))
+        self.scan(path_to_scan, match_pattern)
