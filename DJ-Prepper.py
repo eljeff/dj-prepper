@@ -5,12 +5,12 @@ import os
 
 target_bpm = 111.0
 pattern_match = "*.mp3"
-timestretch = False
-dir_to_scan = "process"
+timestretch_enable = False
+indir = "process"
 outdir = "processed"
 
 scanner = DirScanner.DirScanner()
-files = scanner.scan(dir_to_scan, pattern_match)
+files = scanner.scan(indir, pattern_match)
 
 for f in files:
     print("processing " + f)
@@ -23,11 +23,11 @@ for f in files:
     new_sr = modifier * sr
 
     print(str(bpm) + " -- " + str(modifier) + " -- " + str(new_sr))
-    new_path = path_with_bpm.replace(dir_to_scan, outdir)
+    new_path = path_with_bpm.replace(indir, outdir)
     
     print("saving to " + new_path)
 
-    if timestretch:
+    if timestretch_enable:
         print("timestretching to " + str(new_sr))
         ff = ffmpy.FFmpeg(inputs={f: None}, outputs={new_path: ["-filter:a", "asetrate=" + str(new_sr)]}) #timestretch
     else:
