@@ -5,7 +5,7 @@ import os
 
 target_bpm = 111.0
 pattern_match = "*.mp3"
-timestretch = True
+timestretch = False
 dir_to_scan = "process"
 outdir = "processed"
 
