@@ -34,6 +34,6 @@ for f in files:
         print("resampling to " + str(new_sr))
         setrate_filter = "[a]asetrate=" + str(new_sr) + "[b]"
         resample_filter = "[b]aresample=44100"
-        ff = ffmpy.FFmpeg(inputs={f: None}, outputs={new_path: ["-y", "-filter_complex:a", setrate_filter + ", " + resample_filter]})
+        ff = ffmpy.FFmpeg(inputs={f: None}, outputs={new_path: ["-y", "-filter_complex:a", setrate_filter + ", " + resample_filter]}, global_options="-hide_banner -loglevel error")
 
     ff.run()
