@@ -3,8 +3,8 @@ import DirScanner
 import GetBPM
 import os
 
-target_bpm = 111.0
-pattern_match = "*.mp3"
+target_bpm = 120.0
+pattern_match = "*.flac"
 timestretch_enable = False
 indir = "process"
 outdir = "processed"
@@ -20,7 +20,7 @@ for f in files:
     bpm, sr = GetBPM.getBPMLibrosa(f, target_bpm)
 
     modifier = target_bpm / bpm
-    new_sr = modifier * sr
+    new_sr = modifier * float(sr)
 
     print(str(bpm) + " -- " + str(modifier) + " -- " + str(new_sr))
     new_path = path_with_bpm.replace(indir, outdir)
