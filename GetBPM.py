@@ -1,9 +1,11 @@
 import librosa
 
 def getBPMLibrosa(f, target):
-    y, sr = librosa.load(f, sr=None)
-    beatinfo = librosa.beat.tempo(y=y, sr=sr)
+    y, sr = librosa.load(f, sr=None, mono=True, offset=60, duration=60)
+    beatinfo = librosa.beat.tempo(y=y, sr=sr, start_bpm=int(target), hop_length=64)#, ac_size=10, hop_length=128)
     bpm = beatinfo[0]
+    print("guessed " + str(bpm))
+    
     return keepBPMInRangeScale(bpm, target), sr
 
 def getBPMLibrosaTweak(f, offset, duration, target, range):
