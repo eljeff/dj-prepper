@@ -9,7 +9,7 @@ def getBPMLibrosa(f, target):
         duration = file_duration
 
     y, sr = librosa.load(f, sr=None, mono=True, offset=offset, duration=duration)
-    beatinfo = librosa.beat.tempo(y=y, sr=sr, start_bpm=int(target), hop_length=70)
+    beatinfo = librosa.beat.tempo(y=y, sr=sr, start_bpm=int(target), hop_length=64)
     bpm = beatinfo[0]
     print("guessed bpm " + str(bpm))
     
